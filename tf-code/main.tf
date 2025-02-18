@@ -3,7 +3,7 @@ resource "random_id" "random" {
 }
 
 resource "github_repository" "auto-repo" {
-  name        = "tf-autocreate-1"
+  name        = "tf-autocreate-${random_id.random.dec}"
   description = "Auto created repo through Terraform"
   visibility  = "private"
   auto_init   = true
