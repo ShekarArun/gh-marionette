@@ -11,3 +11,10 @@ resource "github_repository_file" "readme" {
   content             = "This is an auto created repo through Terraform"
   overwrite_on_create = true
 }
+
+resource "github_repository_file" "index" {
+  repository          = github_repository.auto-repo.name
+  file                = "index.html"
+  content             = "This is an HTML file!"
+  overwrite_on_create = true
+}
