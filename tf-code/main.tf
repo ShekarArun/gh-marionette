@@ -1,3 +1,7 @@
+resource "random_id" "random" {
+  byte_length = 2
+}
+
 resource "github_repository" "auto-repo" {
   name        = "tf-autocreate-1"
   description = "Auto created repo through Terraform"
