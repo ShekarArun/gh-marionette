@@ -26,3 +26,8 @@ resource "github_repository_file" "index" {
   content             = "This is an HTML file!"
   overwrite_on_create = true
 }
+
+output "repo-names" {
+  value       = github_repository.auto-repo[*].name
+  description = "Repo names"
+}
