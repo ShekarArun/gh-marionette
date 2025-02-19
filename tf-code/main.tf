@@ -27,7 +27,8 @@ resource "github_repository_file" "index" {
   overwrite_on_create = true
 }
 
-output "repo-names" {
-  value       = github_repository.auto-repo[*].name
-  description = "Repo names"
+output "clone-urls" {
+  value       = { for i in github_repository.auto-repo[*] : i.name => i.ssh_clone_url }
+  description = "Repo names and URLs"
+  sensitive   = false
 }
