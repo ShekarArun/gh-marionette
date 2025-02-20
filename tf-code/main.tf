@@ -32,3 +32,8 @@ output "clone-urls" {
   description = "Repo names and URLs"
   sensitive   = false
 }
+
+# output "varsource" {
+#   value       = var.varsource
+#   description = "Source used for variable definition"
+# }

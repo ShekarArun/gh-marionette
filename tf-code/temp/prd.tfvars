@@ -1,0 +1,1 @@
+varsource = "prd.tfvars"
