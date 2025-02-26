@@ -14,7 +14,8 @@ variable "env" {
   description = "Deployment Environment"
 
   validation {
-    condition     = var.env == "dev" || var.env == "prd"
+    # condition     = var.env == "dev" || var.env == "prd"
+    condition     = contains(["dev", "prd"], var.env)
     error_message = "Environment can only be 'dev' or 'prd'"
   }
 }

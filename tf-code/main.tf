@@ -15,7 +15,7 @@ resource "github_repository_file" "readme" {
   count               = var.repo_count
   repository          = github_repository.auto-repo[count.index].name
   file                = "README.md"
-  content             = "This is an auto created repo through Terraform"
+  content             = "This is an auto created repo through Terraform, stage: ${var.env}"
   overwrite_on_create = true
 }
 
