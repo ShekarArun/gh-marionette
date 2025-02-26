@@ -7,7 +7,7 @@ resource "github_repository" "auto-repo" {
   count       = var.repo_count
   name        = "tf-autocreate-${random_id.random[count.index].dec}"
   description = "Auto created repo through Terraform"
-  visibility  = "private"
+  visibility  = var.env == "prd" ? "public" : "private"
   auto_init   = true
 }
 
