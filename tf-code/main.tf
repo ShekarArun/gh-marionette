@@ -9,6 +9,9 @@ resource "github_repository" "auto-repo" {
   description = "${each.value} repo for auto init"
   visibility  = var.env == "prd" ? "public" : "private"
   auto_init   = true
+  provisioner "local-exec" {
+    command = "gh repo view ${self.name} --web"
+  }
   # count       = var.repo_count
   # name        = "tf-autocreate-${random_id.random[count.index].dec}"
   # description = "Auto created repo through Terraform"
