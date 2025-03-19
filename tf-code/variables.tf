@@ -20,6 +20,11 @@ variable "env" {
   }
 }
 
+variable "repos" {
+  type        = set(string)
+  description = "Repositories"
+}
+
 # variable "varsource" {
 #   type        = string
 #   description = "Source used to define variables"
