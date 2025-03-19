@@ -4,7 +4,7 @@
 # }
 
 resource "github_repository" "auto-repo" {
-  for_each    = toset(["infra", "backend"])
+  for_each    = var.repos
   name        = "auto-repo-${each.key}"
   description = "${each.value} repo for auto init"
   visibility  = var.env == "prd" ? "public" : "private"

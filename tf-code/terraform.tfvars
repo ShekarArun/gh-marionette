@@ -1,4 +1,4 @@
-repo_max = 2
+repo_max = 3
 env      = "dev"
 # varsource  = "terraform.tfvars"
-repos = ["infra", "backend"]
+repos = ["infra", "backend", "frontend"]
