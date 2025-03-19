@@ -12,6 +12,14 @@ resource "github_repository" "auto-repo" {
   provisioner "local-exec" {
     command = "gh repo view ${self.name} --web"
   }
+  provisioner "local-exec" {
+    command = "gh repo clone ${self.name}"
+    when    = create
+  }
+  provisioner "local-exec" {
+    command = "rm -rf ${self.name}"
+    when    = destroy
+  }
   # count       = var.repo_count
   # name        = "tf-autocreate-${random_id.random[count.index].dec}"
   # description = "Auto created repo through Terraform"
