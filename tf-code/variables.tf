@@ -1,11 +1,11 @@
-variable "repo_count" {
+variable "repo_max" {
   type        = number
-  description = "Number of copies of resources"
-  default     = 1
+  description = "Number of repos"
+  default     = 2
 
   validation {
-    condition     = var.repo_count < 5
-    error_message = "More than 4 repositories not allowed"
+    condition     = var.repo_max < 10
+    error_message = "More than 10 repositories not allowed"
   }
 }
 
@@ -23,6 +23,11 @@ variable "env" {
 variable "repos" {
   type        = set(string)
   description = "Repositories"
+
+  validation {
+    condition     = length(var.repos) <= var.repo_max
+    error_message = "Number of repos exceeds max limit (repo_max) of ${var.repo_max}"
+  }
 }
 
 # variable "varsource" {
