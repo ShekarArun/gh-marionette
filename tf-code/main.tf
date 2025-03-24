@@ -6,7 +6,7 @@
 resource "github_repository" "auto-repo" {
   for_each    = var.repos
   name        = "auto-repo-${each.key}"
-  description = "${each.value} repo for auto init"
+  description = "${each.value.lang} repo for auto init"
   visibility  = var.env == "prd" ? "public" : "private"
   auto_init   = true
   provisioner "local-exec" {
@@ -39,7 +39,7 @@ resource "github_repository_file" "readme" {
   repository          = github_repository.auto-repo[each.key].name
   branch              = "main"
   file                = "README.md"
-  content             = "This is an auto created repo through Terraform, stage: ${var.env}"
+  content             = "This is a ${var.env} ${each.value.lang} auto created repo through Terraform for ${each.key} developers"
   overwrite_on_create = true
 }
 
@@ -47,8 +47,8 @@ resource "github_repository_file" "index" {
   for_each = var.repos
   # count               = var.repo_count
   repository          = github_repository.auto-repo[each.key].name
-  file                = "index.html"
-  content             = "This is an HTML file!"
+  file                = each.value.filename
+  content             = "This is an initial file!"
   overwrite_on_create = true
 }
 
