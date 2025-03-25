@@ -75,3 +75,12 @@ output "clone-urls" {
 #   value       = var.varsource
 #   description = "Source used for variable definition"
 # }
+
+data "github_user" "current" {
+  username = ""
+}
+
+output "current_github_login" {
+  value       = data.github_user.current.login
+  description = "The user through whom actions are performed"
+}
