@@ -36,20 +36,28 @@ resource "terraform_data" "repo-clone-provisioner-host" {
 resource "github_repository_file" "readme" {
   for_each = var.repos
   # count               = var.repo_count
-  repository          = github_repository.auto-repo[each.key].name
-  branch              = "main"
-  file                = "README.md"
-  content             = <<-EOT
-                        # README for auto-repo
-                        This is a ${var.env} ${each.value.lang} auto created repo
-                        The repo was created through Terraform for ${each.key} developers
-                        EOT
+  repository = github_repository.auto-repo[each.key].name
+  branch     = "main"
+  file       = "README.md"
+  content = templatefile(
+    "templates/readme.tftpl",
+    {
+      env  = var.env,
+      lang = each.value.lang,
+      repo = each.key,
+    }
+  )
   overwrite_on_create = true
   lifecycle {
     ignore_changes = [
       content,
     ]
   }
+  # content             = <<-EOT
+  #                       # README for auto-repo
+  #                       This is a ${var.env} ${each.value.lang} auto created repo
+  #                       The repo was created through Terraform for ${each.key} developers
+  #                       EOT
 }
 
 resource "github_repository_file" "index" {
