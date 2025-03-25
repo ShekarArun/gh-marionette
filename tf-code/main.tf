@@ -39,7 +39,11 @@ resource "github_repository_file" "readme" {
   repository          = github_repository.auto-repo[each.key].name
   branch              = "main"
   file                = "README.md"
-  content             = "This is a ${var.env} ${each.value.lang} auto created repo through Terraform for ${each.key} developers"
+  content             = <<-EOT
+                        # README for auto-repo
+                        This is a ${var.env} ${each.value.lang} auto created repo
+                        The repo was created through Terraform for ${each.key} developers
+                        EOT
   overwrite_on_create = true
   lifecycle {
     ignore_changes = [
