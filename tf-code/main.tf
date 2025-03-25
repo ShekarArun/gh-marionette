@@ -24,7 +24,7 @@ resource "github_repository" "auto-repo" {
 resource "terraform_data" "repo-clone-provisioner-host" {
   for_each = var.repos
   depends_on = [
-    github_repository_file.index,
+    github_repository_file.main,
     github_repository_file.readme
   ]
   provisioner "local-exec" {
@@ -60,7 +60,7 @@ resource "github_repository_file" "readme" {
   #                       EOT
 }
 
-resource "github_repository_file" "index" {
+resource "github_repository_file" "main" {
   for_each = var.repos
   # count               = var.repo_count
   repository          = github_repository.auto-repo[each.key].name
@@ -74,25 +74,13 @@ resource "github_repository_file" "index" {
   }
 }
 
-output "clone-urls" {
-  value = {
-    for k, v in github_repository.auto-repo : k => v.ssh_clone_url
-  }
-  # value       = { for i in github_repository.auto-repo[*] : i.name => i.ssh_clone_url }
-  description = "Repo names and URLs"
-  sensitive   = false
-}
-
 # output "varsource" {
 #   value       = var.varsource
 #   description = "Source used for variable definition"
 # }
 
-data "github_user" "current" {
-  username = ""
-}
-
-output "current_github_login" {
-  value       = data.github_user.current.login
-  description = "The user through whom actions are performed"
-}
+# Kept to indicate the purpose of the 'moved' operation
+# moved {
+#   from = github_repository_file.index
+#   to   = github_repository_file.main
+# }
