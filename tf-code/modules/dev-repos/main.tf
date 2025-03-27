@@ -52,11 +52,12 @@ resource "github_repository_file" "readme" {
   branch     = "main"
   file       = "README.md"
   content = templatefile(
-    "templates/readme.tftpl",
+    "${path.module}/templates/readme.tftpl",
     {
-      env  = var.env,
-      lang = each.value.lang,
-      repo = each.key,
+      env        = var.env,
+      lang       = each.value.lang,
+      repo       = each.key,
+      authorname = data.github_user.current.name
     }
   )
   overwrite_on_create = true
