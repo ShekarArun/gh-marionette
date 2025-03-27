@@ -11,10 +11,13 @@ resource "github_repository" "auto-repo" {
   visibility = var.env == "prd" ? "public" : "public" # Changed due to issue with GH pages on private repo
   auto_init  = true
 
-  pages {
-    source {
-      branch = "main"
-      path   = "/"
+  dynamic "pages" {
+    for_each = each.value.pages ? [1] : [] # If pages is true, then execute, else skip creation of pages
+    content {
+      source {
+        branch = "main"
+        path   = "/"
+      }
     }
   }
 
