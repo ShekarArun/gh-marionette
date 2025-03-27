@@ -7,8 +7,17 @@ resource "github_repository" "auto-repo" {
   for_each    = var.repos
   name        = "auto-repo-${each.key}"
   description = "${each.value.lang} repo for auto init"
-  visibility  = var.env == "prd" ? "public" : "private"
-  auto_init   = true
+  # visibility  = var.env == "prd" ? "public" : "private"
+  visibility = var.env == "prd" ? "public" : "public" # Changed due to issue with GH pages on private repo
+  auto_init  = true
+
+  pages {
+    source {
+      branch = "main"
+      path   = "/"
+    }
+  }
+
   provisioner "local-exec" {
     command = "gh repo view ${self.name} --web"
   }
