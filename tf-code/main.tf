@@ -1,8 +1,4 @@
-module "repos" {
-  source   = "./modules/dev-repos"
-  repo_max = 3
-  env      = "dev"
-  # varsource  = "terraform.tfvars"
+locals {
   repos = {
     "infra" = {
       lang     = "terraform",
@@ -20,5 +16,14 @@ module "repos" {
       pages    = false
     }
   }
+  environments = toset(["dev", "prd"])
+}
 
+module "repos" {
+  source   = "./modules/dev-repos"
+  for_each = local.environments
+  repo_max = 6
+  env      = each.key
+  # varsource  = "terraform.tfvars"
+  repos = local.repos
 }

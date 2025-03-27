@@ -5,7 +5,7 @@
 
 resource "github_repository" "auto-repo" {
   for_each    = var.repos
-  name        = "auto-repo-${each.key}"
+  name        = "auto-repo-${each.key}-${var.env}"
   description = "${each.value.lang} repo for auto init"
   # visibility  = var.env == "prd" ? "public" : "private"
   visibility = var.env == "prd" ? "public" : "public" # Changed due to issue with GH pages on private repo
