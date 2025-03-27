@@ -16,4 +16,5 @@ repos = {
     lang     = "html",
     filename = "index.html",
     pages    = false
-} }
+  }
+}
