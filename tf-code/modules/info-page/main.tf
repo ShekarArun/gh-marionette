@@ -81,7 +81,7 @@ resource "github_repository_file" "this" {
       ],
 
       dev_count      = 3
-      prod_count     = 3
+      prd_count      = 3
       frontend_count = 2
       backend_count  = 2
       infra_count    = 2
