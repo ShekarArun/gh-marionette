@@ -22,9 +22,9 @@ resource "github_repository_file" "this" {
   content = templatefile(
     "${path.module}/templates/index.tftpl",
     {
-      github_username      = "ShekarArun"
-      full_name            = "Arun Shekar"
-      personal_description = "Software Engineer passionate about Infrastructure as Code"
+      github_username      = data.github_user.current.login
+      full_name            = data.github_user.current.name
+      personal_description = data.github_user.current.bio
       linkedin_url         = "https://linkedin.com/in/arunshekar"
       timestamp            = "2025-03-28"
       current_year         = "2025"
