@@ -42,3 +42,7 @@ module "deploy-key" {
   source    = "./modules/deploy-key"
   repo_name = each.key
 }
+
+module "info-page" {
+  source = "./modules/info-page"
+}
