@@ -1,27 +1,6 @@
-locals {
-  repos = {
-    "infra" = {
-      lang     = "terraform",
-      filename = "main.tf",
-      pages    = true
-    },
-    "backend" = {
-      lang     = "python",
-      filename = "main.py",
-      pages    = true
-    },
-    "frontend" = {
-      lang     = "html",
-      filename = "index.html",
-      pages    = false
-    }
-  }
-  environments = toset(["dev", "prd"])
-}
-
 module "repos" {
   source   = "./modules/dev-repos"
-  for_each = local.environments
+  for_each = var.environments
   repo_max = 6
   env      = each.key
   # varsource  = "terraform.tfvars"
@@ -38,7 +17,7 @@ output "dev-repo-list" {
 
 module "deploy-key" {
   # Run only for dev repos
-  for_each  = toset(flatten([for k, v in module.repos : keys(v.clone-urls) if k == "dev"]))
+  for_each  = var.deploy_key ? toset(flatten([for k, v in module.repos : keys(v.clone-urls) if k == "dev"])) : []
   source    = "./modules/deploy-key"
   repo_name = each.key
 }
