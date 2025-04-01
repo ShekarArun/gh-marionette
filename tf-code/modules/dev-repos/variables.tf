@@ -35,3 +35,8 @@ variable "repos" {
 #   description = "Source used to define variables"
 #   default     = "variables.tf"
 # }
+
+variable "run_provisioners" {
+  type    = bool
+  default = false
+}

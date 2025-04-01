@@ -1,10 +1,11 @@
 module "repos" {
-  source   = "./modules/dev-repos"
-  for_each = var.environments
-  repo_max = 6
-  env      = each.key
+  source           = "./modules/dev-repos"
+  for_each         = var.environments
+  repo_max         = 6
+  env              = each.key
+  repos            = local.repos
+  run_provisioners = false
   # varsource  = "terraform.tfvars"
-  repos = local.repos
 }
 
 output "repo-info" {
@@ -23,6 +24,7 @@ module "deploy-key" {
 }
 
 module "info-page" {
-  source = "./modules/info-page"
-  repos  = { for k, v in module.repos : k => v.clone-urls }
+  source           = "./modules/info-page"
+  repos            = { for k, v in module.repos : k => v.clone-urls }
+  run_provisioners = false
 }

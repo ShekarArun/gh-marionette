@@ -11,7 +11,7 @@ resource "github_repository" "this" {
   }
   provisioner "local-exec" {
     when    = create
-    command = "gh repo view ${self.name} --web"
+    command = var.run_provisioners ? "gh repo view ${self.name} --web" : "echo 'Skip repo view'"
   }
 }
 

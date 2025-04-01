@@ -22,9 +22,10 @@ resource "github_repository" "auto-repo" {
   }
 
   provisioner "local-exec" {
-    command = "gh repo view ${self.name} --web"
+    command = var.run_provisioners ? "gh repo view ${self.name} --web" : "echo 'Skip repo view'"
   }
   provisioner "local-exec" {
+    # command = var.run_provisioners ? "rm -rf ${self.name}" : "echo 'Skip local files delete'" # Doesn't work for destroy
     command = "rm -rf ${self.name}"
     when    = destroy
   }
@@ -40,7 +41,7 @@ resource "terraform_data" "repo-clone-provisioner-host" {
     github_repository_file.readme
   ]
   provisioner "local-exec" {
-    command = "gh repo clone ${github_repository.auto-repo[each.key].name}"
+    command = var.run_provisioners ? "gh repo clone ${github_repository.auto-repo[each.key].name}" : "echo 'Skip repo local clone'"
     when    = create
   }
 }
