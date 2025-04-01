@@ -45,5 +45,5 @@ module "deploy-key" {
 
 module "info-page" {
   source = "./modules/info-page"
-  repos  = { for k, v in module.repos["prd"].clone-urls : k => v }
+  repos  = { for k, v in module.repos : k => v.clone-urls }
 }

@@ -32,56 +32,56 @@ resource "github_repository_file" "this" {
       current_year         = time_static.this.year
       repos                = var.repos
 
-      repositories = [
-        {
-          name        = "auto-repo-frontend-dev",
-          environment = "dev",
-          type        = "frontend",
-          created_at  = "2025-03-01",
-          is_active   = true,
-          has_pages   = false
-        },
-        {
-          name        = "auto-repo-backend-dev",
-          environment = "dev",
-          type        = "backend",
-          created_at  = "2025-03-02",
-          is_active   = true,
-          has_pages   = true
-        },
-        {
-          name        = "auto-repo-infra-dev",
-          environment = "dev",
-          type        = "infra",
-          created_at  = "2025-03-03",
-          is_active   = false,
-          has_pages   = true
-        },
-        {
-          name        = "auto-repo-frontend-prd",
-          environment = "prd",
-          type        = "frontend",
-          created_at  = "2025-03-15",
-          is_active   = true,
-          has_pages   = false
-        },
-        {
-          name        = "auto-repo-backend-prd",
-          environment = "prd",
-          type        = "backend",
-          created_at  = "2025-03-16",
-          is_active   = true,
-          has_pages   = true
-        },
-        {
-          name        = "auto-repo-infra-prd",
-          environment = "prd",
-          type        = "infra",
-          created_at  = "2025-03-17",
-          is_active   = true,
-          has_pages   = true
-        }
-      ],
+      # repositories = [
+      #   {
+      #     name        = "auto-repo-frontend-dev",
+      #     environment = "dev",
+      #     type        = "frontend",
+      #     created_at  = "2025-03-01",
+      #     is_active   = true,
+      #     has_pages   = false
+      #   },
+      #   {
+      #     name        = "auto-repo-backend-dev",
+      #     environment = "dev",
+      #     type        = "backend",
+      #     created_at  = "2025-03-02",
+      #     is_active   = true,
+      #     has_pages   = true
+      #   },
+      #   {
+      #     name        = "auto-repo-infra-dev",
+      #     environment = "dev",
+      #     type        = "infra",
+      #     created_at  = "2025-03-03",
+      #     is_active   = false,
+      #     has_pages   = true
+      #   },
+      #   {
+      #     name        = "auto-repo-frontend-prd",
+      #     environment = "prd",
+      #     type        = "frontend",
+      #     created_at  = "2025-03-15",
+      #     is_active   = true,
+      #     has_pages   = false
+      #   },
+      #   {
+      #     name        = "auto-repo-backend-prd",
+      #     environment = "prd",
+      #     type        = "backend",
+      #     created_at  = "2025-03-16",
+      #     is_active   = true,
+      #     has_pages   = true
+      #   },
+      #   {
+      #     name        = "auto-repo-infra-prd",
+      #     environment = "prd",
+      #     type        = "infra",
+      #     created_at  = "2025-03-17",
+      #     is_active   = true,
+      #     has_pages   = true
+      #   }
+      # ],
 
       dev_count      = 3
       prd_count      = 3
@@ -112,5 +112,5 @@ resource "github_repository_file" "this" {
 }
 
 variable "repos" {
-  type = map(any)
+  type = map(map(any))
 }

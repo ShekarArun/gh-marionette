@@ -27,39 +27,29 @@
     <tr>
       <th>Repository</th>
       <th>Environment</th>
-      <th>Type</th>
-      <th>Created</th>
-      <th>Status</th>
       <th>Links</th>
     </tr>
   </thead>
   <tbody>
-    %{ for repo in repositories }
-    <tr>
-      <td><strong>${repo.name}</strong></td>
-      <td><span style="display: inline-block; padding: 3px 8px; border-radius: 3px; background-color: ${repo.environment == "prd" ? "#d73a4a" : "#2188ff"}; color: white;">${repo.environment}</span></td>
-      <td>${repo.type}</td>
-      <td>${repo.created_at}</td>
-      <td>
-        %{ if repo.is_active }
-        <span style="color: #28a745;">●</span> Active
-        %{ else }
-        <span style="color: #d73a4a;">●</span> Inactive
-        %{ endif }
-      </td>
-      <td>
-        <a href="https://github.com/${github_username}/${repo.name}" target="_blank" style="text-decoration: none; margin-right: 10px;">
-          <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github" alt="GitHub">
-        </a>
-        %{ if repo.has_pages }
-        <a href="https://${github_username}.github.io/${repo.name}/" target="_blank" style="text-decoration: none;">
-          <img src="https://img.shields.io/badge/Website-0366d6?style=flat&logo=github-pages" alt="Website">
-        </a>
-        %{ else }
-        N/A
-        %{ endif }
-      </td>
-    </tr>
+    %{ for repo_env, repo in repos }
+      %{ for repo_name, clone_urls in repo }
+      <tr>
+        <td><strong>${repo_name}</strong></td>
+        <td><span style="display: inline-block; padding: 3px 8px; border-radius: 3px; background-color: ${repo_env == "prd" ? "#d73a4a" : "#2188ff"}; color: white;">${repo_env}</span></td>
+        <td>
+          <a href="${clone_urls.http_url}" target="_blank" style="text-decoration: none; margin-right: 10px;">
+            <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github" alt="GitHub">
+          </a>
+          %{ if clone_urls.pages_url != "N/A" }
+          <a href="${clone_urls.pages_url}" target="_blank" style="text-decoration: none;">
+            <img src="https://img.shields.io/badge/Website-0366d6?style=flat&logo=github-pages" alt="Website">
+          </a>
+          %{ else }
+          N/A
+          %{ endif }
+        </td>
+      </tr>
+      %{ endfor }
     %{ endfor }
   </tbody>
 </table>
@@ -84,27 +74,6 @@
     </ul>
   </div>
 </div>
-
-## Latest Activity
-
-<table>
-  <thead>
-    <tr>
-      <th>Repository</th>
-      <th>Last Updated</th>
-      <th>Recent Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    %{ for activity in recent_activities }
-    <tr>
-      <td><strong>${activity.repo_name}</strong></td>
-      <td>${activity.last_updated}</td>
-      <td>${activity.action_description}</td>
-    </tr>
-    %{ endfor }
-  </tbody>
-</table>
 
 ---
 
