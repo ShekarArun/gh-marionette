@@ -15,6 +15,7 @@ resource "github_repository" "this" {
   }
 }
 
+resource "time_static" "this" {}
 resource "github_repository_file" "this" {
   repository = github_repository.this.name
   branch     = "main"
@@ -27,7 +28,7 @@ resource "github_repository_file" "this" {
       personal_description = data.github_user.current.bio
       linkedin_url         = "https://linkedin.com/in/arun-shekar"
       timestamp            = formatdate("YYYY-MM-DD", timestamp())
-      current_year         = formatdate("YYYY", timestamp())
+      current_year         = time_static.this.year
 
       repositories = [
         {
