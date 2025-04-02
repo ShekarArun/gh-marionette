@@ -1,6 +1,6 @@
-variable "repos" {
-  type = map(map(any))
-}
+# variable "repos" {
+#   type = map(map(any))
+# }
 
 variable "run_provisioners" {
   type    = bool
