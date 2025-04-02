@@ -30,7 +30,7 @@ resource "github_repository_file" "this" {
       linkedin_url         = "https://linkedin.com/in/arun-shekar"
       timestamp            = formatdate("YYYY-MM-DD", timestamp())
       current_year         = time_static.this.year
-      repos                = var.repos
+      repos                = local.repos
 
       # repositories = [
       #   {
