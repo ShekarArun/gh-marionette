@@ -1,15 +1,16 @@
-resource "local_file" "repos" {
-  content  = jsonencode(local.repos)
-  filename = "${path.module}/repos.json"
-}
+# resource "local_file" "repos" {
+#   content  = jsonencode(local.repos)
+#   filename = "${path.module}/repos.json"
+# }
 
 module "repos" {
   source           = "./modules/dev-repos"
   for_each         = var.environments
   repo_max         = 6
   env              = each.key
-  repos            = jsondecode(file("repos.json"))
+  repos            = local.repos
   run_provisioners = false
+  # repos            = jsondecode(file("repos.json"))
   # varsource  = "terraform.tfvars"
 }
 
